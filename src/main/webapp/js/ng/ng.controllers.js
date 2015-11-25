@@ -3,8 +3,8 @@ angular.module('app.controllers', [])
 	}])
 	.controller('HomeworkAppController', ['$scope', function($scope) {
 	}])
-	.controller('Query1Controller', ['$scope', function($scope) {
 
+	.controller('Query1Controller', ['$scope', function($scope) {
 		$scope.today = function() {
 			$scope.dt = new Date();
 		};
