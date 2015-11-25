@@ -1,0 +1,196 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-bar-chart-o"></i> Queries <span> > Query 2</span></h1>
+    </div>
+</div>
+<!-- Bread crumb is created dynamically -->
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+    <!-- row -->
+    <div class="row" ng-controller="Query1Controller">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <div class="alert alert-warning">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h4 class="no-margin">Can you identify similar firearms image types (e.g., shotguns) that are sold
+                            in the same region and time? Does this indicate influx related to stolen
+                            goods? </h4>
+
+                        <h5>Examples:</h5>
+                        <!--ul>
+                            <li>Show all <strong>shotguns</strong> sold in <strong>Texas</strong>.
+                            <li>Find all <strong>rifles </strong> sold in <strong>Texas</strong> from <strong>January 2014</strong> to <strong>December 2014</strong>.</li>
+                        </ul-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-0">
+                <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                -->
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>Query 2 : Search Filter </h2>
+                </header>
+
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                        <input class="form-control" type="text">
+                    </div>
+                    <!-- end widget edit box -->
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <!-- this is what the user will see -->
+                        <!--div id="noroll" style="width:100%; height:300px;"></div-->
+                        <form class="form-horizontal">
+
+                            <fieldset>
+                                <legend>Query Search Filter</legend>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Keywords</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" placeholder="Enter Search Keywords" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="multiselect1">Weapon Categories</label>
+                                    <div class="col-md-10">
+                                        <select multiple="multiple" id="multiselect1" class="form-control custom-scroll" title="Click to Select a Weapon Category">
+                                            <option>Shotguns</option>
+                                            <option>Rifles</option>
+                                            <option>Pistol</option>
+                                            <option>Handguns</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">US State</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" placeholder="Enter US State" type="text"  list="list">
+                                        <datalist id="list">
+                                            <option value="Alabama">Alabama</option>
+                                            <option value="Alaska">Alaska</option>
+                                            <option value="Arizona">Arizona</option>
+                                            <option value="Arkansas">Arkansas</option>
+                                            <option value="California">California</option>
+                                            <option value="Colorado">Colorado</option>
+                                            <option value="Connecticut">Connecticut</option>
+                                            <option value="Delaware">Delaware</option>
+                                            <option value="Florida">Florida</option>
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Hawaii">Hawaii</option>
+                                            <option value="Idaho">Idaho</option>
+                                            <option value="Illinois">Illinois</option>
+                                            <option value="Indiana">Indiana</option>
+                                            <option value="Iowa">Iowa</option>
+                                            <option value="Kansas">Kansas</option>
+                                            <option value="Kentucky">Kentucky</option>
+                                            <option value="Louisiana">Louisiana</option>
+                                            <option value="Maine">Maine</option>
+                                            <option value="Maryland">Maryland</option>
+                                            <option value="Massachusetts">Massachusetts</option>
+                                            <option value="Michigan">Michigan</option>
+                                            <option value="Minnesota">Minnesota</option>
+                                            <option value="Mississippi">Mississippi</option>
+                                            <option value="Missouri">Missouri</option>
+                                            <option value="Montana">Montana</option>
+                                            <option value="Nebraska">Nebraska</option>
+                                            <option value="Nevada">Nevada</option>
+                                            <option value="New Hampshire">New Hampshire</option>
+                                            <option value="New Jersey">New Jersey</option>
+                                            <option value="New Mexico">New Mexico</option>
+                                            <option value="New York">New York</option>
+                                            <option value="North Carolina">North Carolina</option>
+                                            <option value="North Dakota">North Dakota</option>
+                                            <option value="Ohio">Ohio</option>
+                                            <option value="Oklahoma">Oklahoma</option>
+                                            <option value="Oregon">Oregon</option>
+                                            <option value="Pennsylvania">Pennsylvania</option>
+                                            <option value="Rhode Island">Rhode Island</option>
+                                            <option value="South Carolina">South Carolina</option>
+                                            <option value="South Dakota">South Dakota</option>
+                                            <option value="Tennessee">Tennessee</option>
+                                            <option value="Texas">Texas</option>
+                                            <option value="Utah">Utah</option>
+                                            <option value="Vermont">Vermont</option>
+                                            <option value="Virginia">Virginia</option>
+                                            <option value="Washington">Washington</option>
+                                            <option value="West Virginia">West Virginia</option>
+                                            <option value="Wisconsin">Wisconsin</option>
+                                            <option value="Wyoming">Wyoming</option>
+                                            <option value="Washington DC">Washington DC</option>
+                                        </datalist>
+                                        <p class="note"><strong>Note:</strong> You can enter multiple states separated by space or comma.</p>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Date</label>
+                                    <div class="col-md-4">
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                                   ng-model="dt" is-open="opened" min-date="minDate" max-date="'2020-12-12'"
+                                                   datepicker-options="dateOptions"  ng-required="false" close-text="Close" />
+                                              <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                              </span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="reset">
+                                                Cancel
+                                            </button>
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fa fa-save"></i>
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+<!-- end widget grid -->
+
+
+
+<script type="text/javascript">
+
+    pageSetUp();
+
+</script>
