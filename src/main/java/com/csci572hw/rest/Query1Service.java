@@ -17,7 +17,7 @@ public class Query1Service {
 	@Path("/getBubbleMenu")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getBubbleMenu(){
-		QuerySolr querySolr=new QuerySolr("localhost",8983);
+		QuerySolr querySolr=new QuerySolr("localhost",8983,"memexcollection");
 		String response=querySolr.getQueryFromSolr("content%3A+%2F.*shotgun.*%2F+AND+(ctakes_Date_Annotation%3A+%2F2015-01.*%2F+sellerStartDate%3A+%2F2015-01.*%2F+buyerStartDate%3A+%2F2015-01.*%2F)&wt=json&indent=true");
 		return response;
 	}

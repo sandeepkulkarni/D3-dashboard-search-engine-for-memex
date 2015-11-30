@@ -13,8 +13,8 @@ import com.google.gson.Gson;
 
 public class QuerySolr {
 	HttpSolrServer server;
-	public QuerySolr(String host, int port){
-		server= new HttpSolrServer("http://"+host+":"+port+"/solr/memexcollection");
+	public QuerySolr(String host, int port,String collection){
+		server= new HttpSolrServer("http://"+host+":"+port+"/solr/"+collection+"/");
 	    server.setParser(new XMLResponseParser());
 	}
 
@@ -42,7 +42,7 @@ public String getQueryFromSolr(String query){
    }
 
 public static void main(String args[]) throws SolrServerException{
-	QuerySolr querySolr=new QuerySolr("localhost",8983);
+	QuerySolr querySolr=new QuerySolr("localhost",8983,"memexcollection");
 	String response=querySolr.getQueryFromSolr("content%3A+%2F.*shotgun.*%2F+AND+(ctakes_Date_Annotation%3A+%2F2015-01.*%2F+sellerStartDate%3A+%2F2015-01.*%2F+buyerStartDate%3A+%2F2015-01.*%2F)&wt=json&indent=true");
 	System.out.println(response);
 }
