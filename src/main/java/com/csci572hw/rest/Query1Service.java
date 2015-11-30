@@ -5,14 +5,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.http.HttpResponse;
+
+import com.csci572hw.solr.QuerySolr;
+
 @Path("/api/query1")
 public class Query1Service {
+	
 	
 	@GET
 	@Path("/getBubbleMenu")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getBubbleMenu(){
-		return "bubblemenu";
+		QuerySolr querySolr=new QuerySolr("localhost",8983);
+		String response=querySolr.getQueryFromSolr("content%3A+%2F.*shotgun.*%2F+AND+(ctakes_Date_Annotation%3A+%2F2015-01.*%2F+sellerStartDate%3A+%2F2015-01.*%2F+buyerStartDate%3A+%2F2015-01.*%2F)&wt=json&indent=true");
+		return response;
 	}
 
 	@GET
@@ -20,6 +27,7 @@ public class Query1Service {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getChordDiagram(){
 		return "ChordDiagram";
+		
 	}
 	
 
