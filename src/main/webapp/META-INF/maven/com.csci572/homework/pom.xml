@@ -54,6 +54,20 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.12</version>
 		</dependency>
+		<dependency>
+	<groupId>org.apache.solr</groupId>
+	<artifactId>solr-noggit</artifactId>
+	<version>3.5.0</version>
+</dependency>
+
+<dependency>
+	<groupId>com.google.code.gson</groupId>
+	<artifactId>gson</artifactId>
+	<version>2.5</version>
+</dependency>
+
+
+		
 
 		<!-- JSON Object -->
 		<dependency>
