@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
 	.controller('HomeworkAppController', ['$scope', function($scope) {
 	}])
 
-	.controller('Query1Controller', ['$scope', function($scope) {
+	.controller('Query1Controller', ['$scope', '$http', function($scope, $http) {
 		$scope.today = function() {
 			$scope.dt = new Date();
 		};
@@ -32,6 +32,21 @@ angular.module('app.controllers', [])
 		$scope.initDate = new Date();
 		$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 		$scope.format = $scope.formats[0];
+
+
+		$scope.submit = function() {
+			alert('submit');
+		};
+
+		// Simple GET request example:
+		$http({
+			method: 'GET',
+			url: 'http://localhost:8080/homework/api/api/pagerank/getDistribution'
+		}).then(function successCallback(response) {
+			console.log(JSON.stringify(response))
+		}, function errorCallback(response) {
+			console.log(JSON.stringify(response))
+		});
 
 	}]);
 ;
