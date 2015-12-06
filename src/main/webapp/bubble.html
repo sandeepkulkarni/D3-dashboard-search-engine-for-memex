@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="timeseries/style.css" />
+</head>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="timeseries/timeseries.js"></script>
+<script src="jquery-2.0.2.min.js"></script>
+<script src="underscore/underscore-min.js"></script>
+<script src="moment/moment.js"></script>
+<div class="timeseries"></div>
+
+<script>
+var showresults = function(sdata) {
+	var data = [];
+	for(i=0;i<sdata.length;i++)
+	{
+		data[i] = {'value': new Date(sdata[i]).getTime()}
+	}
+    var domEl = 'timeseries';
+    var brushEnabled = true;
+    timeseries(domEl, data, brushEnabled);
+    }
+
+window.onload = function() {
+	$.ajax({
+        type: "get",
+        url: "http://localhost:8080/homework/api/api/query1/getTimeSeries",
+        // processData: false,
+        dataType: "json",
+        success: showresults
+    });
+	
+  }
+  
+</script>
+
+</body>
