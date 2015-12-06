@@ -19,10 +19,11 @@ public class QuerySolr {
 	}
 
 
-public String getQueryFromSolr(String query){
+public SolrDocumentList getQueryFromSolr(String query,int rows){
       // specify the get request
 		SolrQuery solrQuery = new SolrQuery();
-		solrQuery.setQuery("*:*");
+		solrQuery.setQuery(query);
+		solrQuery.setRows(rows);
       
 		solrQuery.setHighlight(true);
 
@@ -35,15 +36,12 @@ public String getQueryFromSolr(String query){
 			e.printStackTrace();
 		}
 	    SolrDocumentList docs = response.getResults();
-	    Gson gson= new Gson();
-
-	    String res= gson.toJson(docs);
-	    return res;
+	    return docs;
    }
 
 public static void main(String args[]) throws SolrServerException{
 	QuerySolr querySolr=new QuerySolr("localhost",8983,"memexcollection");
-	String response=querySolr.getQueryFromSolr("content%3A+%2F.*shotgun.*%2F+AND+(ctakes_Date_Annotation%3A+%2F2015-01.*%2F+sellerStartDate%3A+%2F2015-01.*%2F+buyerStartDate%3A+%2F2015-01.*%2F)&wt=json&indent=true");
+	SolrDocumentList response=querySolr.getQueryFromSolr("content%3A+%2F.*shotgun.*%2F+AND+(ctakes_Date_Annotation%3A+%2F2015-01.*%2F+sellerStartDate%3A+%2F2015-01.*%2F+buyerStartDate%3A+%2F2015-01.*%2F)&wt=json&indent=true&rows=100000",100);
 	System.out.println(response);
 }
 }
