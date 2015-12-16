@@ -4,9 +4,57 @@
     </div>
 </div>
 
+<style type="text/css">
+    /* TimeSeries CSS */
+    .timeseries {
+        width: 100%;
+        padding: 2% 0;
+    }
+    .timeseries svg{
+        width: 100%;
+    }
+    .circ {
+        fill: #D35400;
+        opacity: 0.6;
+        stroke: rgba(211, 84, 0, 0.7);
+        stroke-width: 5px;
+    }
+    .domain {
+        display: none;
+    }
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    .axis text {
+        font-size: 12px;
+    }
+    .tick line {
+        stroke: #d5d5d5;
+        opacity: 0.7;
+    }
+    .brush .extent {
+        stroke: #fff;
+        fill-opacity: .125;
+        shape-rendering: crispEdges;
+    }
+    .clear-brush {
+        display: none;
+    }
+    .brush-control {
+        padding: .5%;
+        width: 100%;
+        text-align: center;
+    }
+    .brush-info {
+        display: inline-block;
+        font-size: 14px;
+    }
+</style>
 <section id="widget-grid" class="">
 
-    <div class="row" ng-controller="Query1Controller">
+    <div class="row" ng-controller="Query3Controller" ng-submit="submit()">
 
         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
@@ -17,16 +65,11 @@
                             may indicate an increase in sales of that particular make/model – can you
                             identify these ? </h4>
 
-                        <h5>Examples:</h5>
-                        <!--ul>
-                            <li>Show all <strong>shotguns</strong> sold in <strong>Texas</strong>.
-                            <li>Find all <strong>rifles </strong> sold in <strong>Texas</strong> from <strong>January 2014</strong> to <strong>December 2014</strong>.</li>
-                        </ul-->
                     </div>
                 </div>
             </div>
 
-            <div class="jarviswidget" id="wid-id-2">
+            <div class="jarviswidget" id="wid-id-300">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
                     <h2>Query 3 : Search Filter </h2>
@@ -92,6 +135,22 @@
                             </fieldset>
                         </form>
 
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="jarviswidget" id="wid-id-30">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>Time Series</h2>
+                </header>
+                <div>
+                    <div class="jarviswidget-editbox">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="widget-body">
+                        <div class="timeseries"></div>
                     </div>
                 </div>
             </div>

@@ -1,33 +1,3 @@
-<style type="text/css">
-    #mainBubble {
-      background: #fff;
-      border: solid 1px #ddd;
-      box-shadow: 0 0 4px rgba(0,0,0,0);
-      font: 10px sans-serif;
-      height: 800px;
-      position: relative;
-      width: 80%;
-    }
-             
-    #mainBubble svg {
-      left: 0;
-      position: absolute;
-      top: 0;
-    }
-                         
-    #mainBubble circle.topBubble {
-      fill: #aaa;
-      stroke: #666;
-      stroke-width: 1.5px;
-     }
-    </style>
-    
-    
-    <title>
-      Bubble Menu
-    </title>
-   
-  
   
 <div class="row">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -35,12 +5,484 @@
     </div>
 </div>
 
+<style type="text/css">
+    /* TimeSeries CSS */
+    .timeseries {
+        width: 100%;
+        padding: 2% 0;
+    }
+    .timeseries svg{
+        width: 100%;
+    }
+    .circ {
+        fill: #D35400;
+        opacity: 0.6;
+        stroke: rgba(211, 84, 0, 0.7);
+        stroke-width: 5px;
+    }
+    .domain {
+        display: none;
+    }
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    .axis text {
+        font-size: 12px;
+    }
+    .tick line {
+        stroke: #d5d5d5;
+        opacity: 0.7;
+    }
+    .brush .extent {
+        stroke: #fff;
+        fill-opacity: .125;
+        shape-rendering: crispEdges;
+    }
+    .clear-brush {
+        display: none;
+    }
+    .brush-control {
+        padding: .5%;
+        width: 100%;
+        text-align: center;
+    }
+    .brush-info {
+        display: inline-block;
+        font-size: 14px;
+    }
+</style>
+
+<style>
+    /* cyrillic-ext */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Sans'), local('PTSans-Regular'), url(http://fonts.gstatic.com/s/ptsans/v8/fhNmDCnjccoUYyU4ZASaLVKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+    }
+    /* cyrillic */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Sans'), local('PTSans-Regular'), url(http://fonts.gstatic.com/s/ptsans/v8/BJVWev7_auVaQ__OU8Qih1KPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* latin-ext */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Sans'), local('PTSans-Regular'), url(http://fonts.gstatic.com/s/ptsans/v8/oysROHFTu1eTZ74Hcf8V-VKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Sans'), local('PTSans-Regular'), url(http://fonts.gstatic.com/s/ptsans/v8/CWlc_g68BGYDSGdpJvpktgLUuEpTyoUstqEm5AMlJo4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+    /* cyrillic-ext */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Sans Bold'), local('PTSans-Bold'), url(http://fonts.gstatic.com/s/ptsans/v8/kTYfCWJhlldPf5LnG4ZnHAsYbbCjybiHxArTLjt7FRU.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+    }
+    /* cyrillic */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Sans Bold'), local('PTSans-Bold'), url(http://fonts.gstatic.com/s/ptsans/v8/g46X4VH_KHOWAAa-HpnGPgsYbbCjybiHxArTLjt7FRU.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* latin-ext */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Sans Bold'), local('PTSans-Bold'), url(http://fonts.gstatic.com/s/ptsans/v8/hpORcvLZtemlH8gI-1S-7gsYbbCjybiHxArTLjt7FRU.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+        font-family: 'PT Sans';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Sans Bold'), local('PTSans-Bold'), url(http://fonts.gstatic.com/s/ptsans/v8/0XxGQsSc1g4rdRdjJKZrNAzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+    /* cyrillic-ext */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Serif'), local('PTSerif-Regular'), url(http://fonts.gstatic.com/s/ptserif/v8/5hX15RUpPERmeybVlLQEWBkAz4rYn47Zy2rvigWQf6w.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+    }
+    /* cyrillic */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Serif'), local('PTSerif-Regular'), url(http://fonts.gstatic.com/s/ptserif/v8/fU0HAfLiPHGlZhZpY6M7dBkAz4rYn47Zy2rvigWQf6w.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* latin-ext */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Serif'), local('PTSerif-Regular'), url(http://fonts.gstatic.com/s/ptserif/v8/CPRt--GVMETgA6YEaoGitxkAz4rYn47Zy2rvigWQf6w.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PT Serif'), local('PTSerif-Regular'), url(http://fonts.gstatic.com/s/ptserif/v8/I-OtoJZa3TeyH6D9oli3iXYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+    /* cyrillic-ext */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Serif Bold'), local('PTSerif-Bold'), url(http://fonts.gstatic.com/s/ptserif/v8/QABk9IxT-LFTJ_dQzv7xpPZraR2Tg8w2lzm7kLNL0-w.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+    }
+    /* cyrillic */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Serif Bold'), local('PTSerif-Bold'), url(http://fonts.gstatic.com/s/ptserif/v8/QABk9IxT-LFTJ_dQzv7xpF4sYYdJg5dU2qzJEVSuta0.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* latin-ext */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Serif Bold'), local('PTSerif-Bold'), url(http://fonts.gstatic.com/s/ptserif/v8/QABk9IxT-LFTJ_dQzv7xpKE8kM4xWR1_1bYURRojRGc.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: normal;
+        font-weight: 700;
+        src: local('PT Serif Bold'), local('PTSerif-Bold'), url(http://fonts.gstatic.com/s/ptserif/v8/QABk9IxT-LFTJ_dQzv7xpIgp9Q8gbYrhqGlRav_IXfk.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+    /* cyrillic-ext */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: italic;
+        font-weight: 400;
+        src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/O_WhD9hODL16N4KLHLX7xQsYbbCjybiHxArTLjt7FRU.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+    }
+    /* cyrillic */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: italic;
+        font-weight: 400;
+        src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/3Nwg9VzlwLXPq3fNKwVRMAsYbbCjybiHxArTLjt7FRU.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* latin-ext */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: italic;
+        font-weight: 400;
+        src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/b31S45a_TNgaBApZhTgE6AsYbbCjybiHxArTLjt7FRU.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+        font-family: 'PT Serif';
+        font-style: italic;
+        font-weight: 400;
+        src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzAzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /*html {
+        min-width: 1040px;
+    }*/
+
+    .ocks-org body {
+        background: #fcfcfa;
+        color: #333;
+        font-family: "PT Serif", serif;
+        margin: 1em auto 4em auto;
+        position: relative;
+        width: 960px;
+    }
+
+    .ocks-org header,
+    .ocks-org footer,
+    .ocks-org aside,
+    .ocks-org h1,
+    .ocks-org h2,
+    .ocks-org h3,
+    .ocks-org h4 {
+        font-family: "PT Sans", sans-serif;
+    }
+
+    .ocks-org h1,
+    .ocks-org h2,
+    .ocks-org h3,
+    .ocks-org h4 {
+        color: #000;
+    }
+
+    .ocks-org header,
+    .ocks-org footer {
+        color: #636363;
+    }
+
+    /*h1 {
+        font-size: 64px;
+        font-weight: 300;
+        letter-spacing: -2px;
+        margin: .3em 0 .1em 0;
+    }
+
+    h2 {
+        margin-top: 2em;
+    }
+
+    h1, h2 {
+        text-rendering: optimizeLegibility;
+    }
+
+    h2 a[name],
+    h2 a[id] {
+        color: #ccc;
+        right: 100%;
+        padding: 0 .3em;
+        position: absolute;
+    }
+
+    header,
+    footer {
+        font-size: small;
+    }*/
+
+    .ocks-org header aside,
+    .ocks-org footer aside {
+        float: left;
+        margin-right: .5em;
+    }
+
+    .ocks-org header aside:after,
+    .ocks-org footer aside:after {
+        padding-left: .5em;
+        content: "/";
+    }
+
+    /*footer {
+        margin-top: 8em;
+    }
+
+    h1 ~ aside {
+        font-size: small;
+        right: 0;
+        position: absolute;
+        width: 180px;
+    }*/
+
+    .attribution {
+        font-size: small;
+        margin-bottom: 2em;
+    }
+
+    body > p, li > p {
+        line-height: 1.5em;
+    }
+
+    body > p {
+        width: 720px;
+    }
+
+    body > blockquote {
+        width: 640px;
+    }
+
+    blockquote q {
+        display: block;
+        font-style: oblique;
+    }
+
+    /*ul {
+        padding: 0;
+    }
+
+    li {
+        width: 690px;
+        margin-left: 30px;
+    }
+
+    a {
+        color: steelblue;
+    }
+
+    a:not(:hover) {
+        text-decoration: none;
+    }
+
+    pre, code, textarea {
+        font-family: "Menlo", monospace;
+    }
+
+    code {
+        line-height: 1em;
+    }
+
+    textarea {
+        font-size: 100%;
+    }
+
+    body > pre {
+        border-left: solid 2px #ccc;
+        padding-left: 18px;
+        margin: 2em 0 2em -20px;
+    }
+
+    .html .value,
+    .javascript .string,
+    .javascript .regexp {
+        color: #756bb1;
+    }
+
+    .html .tag,
+    .css .tag,
+    .javascript .keyword {
+        color: #3182bd;
+    }
+
+    .comment {
+        color: #636363;
+    }
+
+    .html .doctype,
+    .javascript .number {
+        color: #31a354;
+    }
+
+    .html .attribute,
+    .css .attribute,
+    .javascript .class,
+    .javascript .special {
+        color: #e6550d;
+    }*/
+
+    svg {
+        font: 10px sans-serif;
+    }
+
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    sup, sub {
+        line-height: 0;
+    }
+
+    q:before {
+        content: "â€œ";
+    }
+
+    q:after {
+        content: "â€?";
+    }
+
+    blockquote q {
+        line-height: 1.5em;
+        display: inline;
+    }
+
+    blockquote q:before,
+    blockquote q:after {
+        content: "";
+    }
+
+    #circle circle {
+        fill: none;
+        pointer-events: all;
+    }
+
+    .group path {
+        fill-opacity: .5;
+    }
+
+    path.chord {
+        stroke: #000;
+        stroke-width: .25px;
+    }
+
+    #circle:hover path.fade {
+        display: none;
+    }
+
+</style>
+<style type="text/css">
+    /*3d donut*/
+    path.slice{
+        stroke-width:2px;
+    }
+    polyline{
+        opacity: .3;
+        stroke: black;
+        stroke-width: 2px;
+        fill: none;
+    }
+    svg text.percent{
+        fill:white;
+        text-anchor:middle;
+        font-size:12px;
+    }
+</style>
+<style type="text/css">
+    /*bubble menu*/
+    #mainBubble {
+        background: #fff;
+        box-shadow: 0 0 4px rgba(0,0,0,0);
+        font: 10px sans-serif;
+        height: 300px;
+        position: relative;
+        width: 95%;
+    }
+    #mainBubble svg {
+        left: 0;
+        position: absolute;
+        top: 0;
+    }
+    #mainBubble circle.topBubble {
+        fill: #aaa;
+        stroke: #666;
+        stroke-width: 1.5px;
+    }
+</style>
+
 <section id="widget-grid" class="">
 
     <div class="row" ng-controller="Query1Controller" ng-submit="submit()">
 
         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div id="mainBubble" style="height: 559px;"><svg class="mainBubbleSVG" width="797.164" height="559"><text id="bubbleItemNote" x="10" y="383.582" font-size="12" dominant-baseline="middle" alignment-baseline="middle" style="fill: rgb(136, 136, 136);">D3.js bubble menu developed by Shipeng Sun (sunsp.gis@gmail.com), Institute of Environment, University of Minnesota, and University of Springfield, Illinois.</text></svg></div>
+
             <div class="alert alert-info">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -59,7 +501,7 @@
                 </div>
             </div>
 
-            <div class="jarviswidget" id="wid-id-0">
+            <div class="jarviswidget" id="wid-id-100">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
                     <h2>Query 1 : Search Filter </h2>
@@ -156,7 +598,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Date</label>
+                                    <label class="col-md-2 control-label">Start Date</label>
                                     <div class="col-md-4">
                                         <p class="input-group">
                                             <input type="text" class="form-control" datepicker-popup="{{format}}"
@@ -190,6 +632,69 @@
                     </div>
                 </div>
             </div>
+
+            <div class="jarviswidget" id="wid-id-10">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>Time Series</h2>
+                </header>
+                <div>
+                    <div class="jarviswidget-editbox">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="widget-body">
+                    	<div class="timeseries"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jarviswidget" id="wid-id-9">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>Chord Diagram</h2>
+                </header>
+                <div>
+                    <div class="jarviswidget-editbox">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="widget-body">
+                        <div style="text-align: center" class="chorddiagram"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jarviswidget" id="wid-id-8">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>3D Donut</h2>
+                </header>
+                <div>
+                    <div class="jarviswidget-editbox">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="widget-body">
+                        <button ng-click="shotguns()">Show Shotguns</button>
+                        <button ng-click="rifles()">Show Rifles</button>
+                        <button ng-click="handguns()">Show Handguns</button>
+                        <div style="text-align: center" class="donutdiagram"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jarviswidget" id="wid-id-1">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>Bubble Menu</h2>
+                </header>
+                <div>
+                    <div class="jarviswidget-editbox">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="widget-body"><div id="mainBubble" style="height: 618px; text-align: center">
+                        <svg class="mainBubbleSVG" width="882.436" height="618"></svg></div>
+                    </div>
+                </div>
+            </div>
 			
         </article>
 
@@ -197,254 +702,8 @@
 
 </section>
 
-
-
 <script type="text/javascript">
-var w = window.innerWidth*0.68*0.95;
-var h = Math.ceil(w*0.7);
-var oR = 0;
-var nTop = 0;
- 
-var svgContainer = d3.select("#mainBubble")
-   .style("height", h+"px");
- 
-var svg = d3.select("#mainBubble").append("svg")
-     .attr("class", "mainBubbleSVG")
-     .attr("width", w)
-     .attr("height",h)
-     .on("mouseleave", function() {return resetBubbles();});
-      
-var mainNote = svg.append("text")
- .attr("id", "bubbleItemNote")
- .attr("x", 10)
- .attr("y", w/2-15)
- .attr("font-size", 12)
- .attr("dominant-baseline", "middle")
- .attr("alignment-baseline", "middle")
- .style("fill", "#888888")
- .text(function(d) {return "D3.js bubble menu developed by Shipeng Sun (sunsp.gis@gmail.com), Institute of Environment, University of Minnesota, and University of Springfield, Illinois.";});   
 
-
- d3.json("main_bubble.json", function(error, root) {
-     console.log(error);
-  
-     var bubbleObj = svg.selectAll(".topBubble")
-             .data(root.children)
-         .enter().append("g")
-             .attr("id", function(d,i) {return "topBubbleAndText_" + i});
-          
-     console.log(root);  
-     nTop = root.children.length;
-     oR = w/(1+3*nTop);  
-
- h = Math.ceil(w/nTop*2);
- svgContainer.style("height",h+"px");
-      
-     var colVals = d3.scale.category10();
-      
-     bubbleObj.append("circle")
-         .attr("class", "topBubble")
-         .attr("id", function(d,i) {return "topBubble" + i;})
-         .attr("r", function(d) { return oR; })
-         .attr("cx", function(d, i) {return oR*(3*(1+i)-1);})
-         .attr("cy", (h+oR)/3)
-         .style("fill", function(d,i) { return colVals(i); }) // #1f77b4
-     .style("opacity",0.3)
-         .on("mouseover", function(d,i) {return activateBubble(d,i);});
-      
-          
-     bubbleObj.append("text")
-         .attr("class", "topBubbleText")
-         .attr("x", function(d, i) {return oR*(3*(1+i)-1);})
-         .attr("y", (h+oR)/3)
-     .style("fill", function(d,i) { return colVals(i); }) // #1f77b4
-         .attr("font-size", 30)
-         .attr("text-anchor", "middle")
-     .attr("dominant-baseline", "middle")
-     .attr("alignment-baseline", "middle")
-         .text(function(d) {return d.name})      
-         .on("mouseover", function(d,i) {return activateBubble(d,i);});
-      
-      
-     for(var iB = 0; iB < nTop; iB++)
-     {
-         var childBubbles = svg.selectAll(".childBubble" + iB)
-             .data(root.children[iB].children)
-             .enter().append("g");
-              
-     //var nSubBubble = Math.floor(root.children[iB].children.length/2.0);   
-          
-         childBubbles.append("circle")
-             .attr("class", "childBubble" + iB)
-             .attr("id", function(d,i) {return "childBubble_" + iB + "sub_" + i;})
-             .attr("r",  function(d) {return oR/3.0;})
-             .attr("cx", function(d,i) {return (oR*(3*(iB+1)-1) + oR*1.5*Math.cos((i-1)*45/180*3.1415926));})
-             .attr("cy", function(d,i) {return ((h+oR)/3 +        oR*1.5*Math.sin((i-1)*45/180*3.1415926));})
-             .attr("cursor","pointer")
-             .style("opacity",0.5)
-             .style("fill", "#eee")
-             .on("click", function(d,i) {
-             window.open(d.address);                 
-           })
-         .on("mouseover", function(d,i) {
-           //window.alert("say something");
-           var noteText = "";
-           if (d.note == null || d.note == "") {
-             noteText = d.address;
-           } else {
-             noteText = d.note;
-           }
-           d3.select("#bubbleItemNote").text(noteText);
-           })
-         .append("svg:title")
-         .text(function(d) { return d.address; });   
-
-         childBubbles.append("text")
-             .attr("class", "childBubbleText" + iB)
-             .attr("x", function(d,i) {return (oR*(3*(iB+1)-1) + oR*1.5*Math.cos((i-1)*45/180*3.1415926));})
-             .attr("y", function(d,i) {return ((h+oR)/3 +        oR*1.5*Math.sin((i-1)*45/180*3.1415926));})
-             .style("opacity",0.5)
-             .attr("text-anchor", "middle")
-         .style("fill", function(d,i) { return colVals(iB); }) // #1f77b4
-             .attr("font-size", 6)
-             .attr("cursor","pointer")
-             .attr("dominant-baseline", "middle")
-         .attr("alignment-baseline", "middle")
-             .text(function(d) {return d.name})      
-             .on("click", function(d,i) {
-             window.open(d.address);
-             }); 
-
-     }
-
-      
-     }); 
-
- resetBubbles = function () {
-   w = window.innerWidth*0.68*0.95;
-   oR = w/(1+3*nTop);
-    
-   h = Math.ceil(w/nTop*2);
-   svgContainer.style("height",h+"px");
-
-   mainNote.attr("y",h-15);
-        
-   svg.attr("width", w);
-   svg.attr("height",h);       
-    
-   d3.select("#bubbleItemNote").text("D3.js bubble menu developed by Shipeng Sun (sunsp.gis@gmail.com), Institute of Environment, University of Minnesota, and University of Springfield, Illinois.");
-    
-   var t = svg.transition()
-       .duration(650);
-      
-     t.selectAll(".topBubble")
-         .attr("r", function(d) { return oR; })
-         .attr("cx", function(d, i) {return oR*(3*(1+i)-1);})
-         .attr("cy", (h+oR)/3);
-
-     t.selectAll(".topBubbleText")
-     .attr("font-size", 30)
-         .attr("x", function(d, i) {return oR*(3*(1+i)-1);})
-         .attr("y", (h+oR)/3);
-  
-   for(var k = 0; k < nTop; k++) 
-   {
-     t.selectAll(".childBubbleText" + k)
-             .attr("x", function(d,i) {return (oR*(3*(k+1)-1) + oR*1.5*Math.cos((i-1)*45/180*3.1415926));})
-             .attr("y", function(d,i) {return ((h+oR)/3 +        oR*1.5*Math.sin((i-1)*45/180*3.1415926));})
-         .attr("font-size", 6)
-             .style("opacity",0.5);
-
-     t.selectAll(".childBubble" + k)
-             .attr("r",  function(d) {return oR/3.0;})
-         .style("opacity",0.5)
-             .attr("cx", function(d,i) {return (oR*(3*(k+1)-1) + oR*1.5*Math.cos((i-1)*45/180*3.1415926));})
-             .attr("cy", function(d,i) {return ((h+oR)/3 +        oR*1.5*Math.sin((i-1)*45/180*3.1415926));});
-                  
-   }   
- }
-      
-      
-     function activateBubble(d,i) {
-         // increase this bubble and decrease others
-         var t = svg.transition()
-             .duration(d3.event.altKey ? 7500 : 350);
-  
-         t.selectAll(".topBubble")
-             .attr("cx", function(d,ii){
-                 if(i == ii) {
-                     // Nothing to change
-                     return oR*(3*(1+ii)-1) - 0.6*oR*(ii-1);
-                 } else {
-                     // Push away a little bit
-                     if(ii < i){
-                         // left side
-                         return oR*0.6*(3*(1+ii)-1);
-                     } else {
-                         // right side
-                         return oR*(nTop*3+1) - oR*0.6*(3*(nTop-ii)-1);
-                     }
-                 }               
-             })
-             .attr("r", function(d, ii) { 
-                 if(i == ii)
-                     return oR*1.8;
-                 else
-                     return oR*0.8;
-                 });
-                  
-         t.selectAll(".topBubbleText")
-             .attr("x", function(d,ii){
-                 if(i == ii) {
-                     // Nothing to change
-                     return oR*(3*(1+ii)-1) - 0.6*oR*(ii-1);
-                 } else {
-                     // Push away a little bit
-                     if(ii < i){
-                         // left side
-                         return oR*0.6*(3*(1+ii)-1);
-                     } else {
-                         // right side
-                         return oR*(nTop*3+1) - oR*0.6*(3*(nTop-ii)-1);
-                     }
-                 }               
-             })          
-             .attr("font-size", function(d,ii){
-                 if(i == ii)
-                     return 30*1.5;
-                 else
-                     return 30*0.6;              
-             });
-  
-         var signSide = -1;
-         for(var k = 0; k < nTop; k++) 
-         {
-             signSide = 1;
-             if(k < nTop/2) signSide = 1;
-             t.selectAll(".childBubbleText" + k)
-                 .attr("x", function(d,i) {return (oR*(3*(k+1)-1) - 0.6*oR*(k-1) + signSide*oR*2.5*Math.cos((i-1)*45/180*3.1415926));})
-                 .attr("y", function(d,i) {return ((h+oR)/3 + signSide*oR*2.5*Math.sin((i-1)*45/180*3.1415926));})
-                 .attr("font-size", function(){
-                         return (k==i)?12:6;
-                     })
-                 .style("opacity",function(){
-                         return (k==i)?1:0;
-                     });
-                  
-             t.selectAll(".childBubble" + k)
-                 .attr("cx", function(d,i) {return (oR*(3*(k+1)-1) - 0.6*oR*(k-1) + signSide*oR*2.5*Math.cos((i-1)*45/180*3.1415926));})
-                 .attr("cy", function(d,i) {return ((h+oR)/3 + signSide*oR*2.5*Math.sin((i-1)*45/180*3.1415926));})
-                 .attr("r", function(){
-                         return (k==i)?(oR*0.55):(oR/3.0);               
-                 })
-                 .style("opacity", function(){
-                         return (k==i)?1:0;                  
-                     }); 
-         }                   
-     }
-  
- window.onresize = resetBubbles;
- 
     pageSetUp();
 
 </script>
